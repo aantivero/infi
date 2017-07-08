@@ -3,19 +3,29 @@ package com.aantivero.infi;
 import com.aantivero.infi.config.ApplicationProperties;
 import com.aantivero.infi.config.DefaultProfileUtil;
 
+import com.aantivero.infi.domain.EntidadFinanciera;
+import com.aantivero.infi.repository.EntidadFinancieraRepository;
+import com.opencsv.CSVReader;
 import io.github.jhipster.config.JHipsterConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -80,5 +90,36 @@ public class InfiApp {
             InetAddress.getLocalHost().getHostAddress(),
             env.getProperty("server.port"),
             env.getActiveProfiles());
+    }
+
+}
+
+@Component
+class LoadInfiInitializer implements CommandLineRunner {
+
+    private final EntidadFinancieraRepository eeffRepository;
+
+    public LoadInfiInitializer(EntidadFinancieraRepository eeffRepository) {
+        this.eeffRepository = eeffRepository;
+    }
+
+    @Override
+    public void run(String... strings) throws Exception {
+        if (eeffRepository.count() == 0) {
+            String eeffFileName = "eeff.csv";
+            File eeffFile = new ClassPathResource(eeffFileName).getFile();
+            CSVReader reader = new CSVReader(new FileReader(eeffFile), ';');
+
+            String[] nextLine;
+
+            while ((nextLine = reader.readNext()) != null) {
+                //System.out.println(nextLine[0] + " - " + nextLine[1] + " - " + nextLine[2]);
+                EntidadFinanciera eeff = new EntidadFinanciera();
+                eeff.setCodigo(nextLine[0]);
+                eeff.setCodigoNumerico(new Integer(nextLine[1]));
+                eeff.setDenominacion(nextLine[2]);
+                eeffRepository.save(eeff);
+            }
+        }
     }
 }

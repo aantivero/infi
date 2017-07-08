@@ -1,0 +1,60 @@
+<div>
+    <h2>
+        <span jhiTranslate="infiApp.entidadFinanciera.home.title">Entidad Financieras</span>
+        <button class="btn btn-primary float-right create-entidad-financiera" [routerLink]="['/', { outlets: { popup: ['entidad-financiera-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="infiApp.entidadFinanciera.home.createLabel">
+            Create new Entidad Financiera
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="entidadFinancieras">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="codigo"><span jhiTranslate="infiApp.entidadFinanciera.codigo">Codigo</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="denominacion"><span jhiTranslate="infiApp.entidadFinanciera.denominacion">Denominacion</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="codigoNumerico"><span jhiTranslate="infiApp.entidadFinanciera.codigoNumerico">Codigo Numerico</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let entidadFinanciera of entidadFinancieras ;trackBy: trackId">
+                <td><a [routerLink]="['../entidad-financiera', entidadFinanciera.id ]">{{entidadFinanciera.id}}</a></td>
+                <td>{{entidadFinanciera.codigo}}</td>
+                <td>{{entidadFinanciera.denominacion}}</td>
+                <td>{{entidadFinanciera.codigoNumerico}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../entidad-financiera', entidadFinanciera.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'entidad-financiera/'+ entidadFinanciera.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'entidad-financiera/'+ entidadFinanciera.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

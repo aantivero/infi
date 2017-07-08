@@ -1,0 +1,23 @@
+{
+    "infiApp": {
+        "entidadFinanciera" : {
+            "home": {
+                "title": "Entidad Financieras",
+                "createLabel": "Create a new Entidad Financiera",
+                "createOrEditLabel": "Create or edit a Entidad Financiera"
+            },
+            "created": "A new Entidad Financiera is created with identifier {{ param }}",
+            "updated": "A Entidad Financiera is updated with identifier {{ param }}",
+            "deleted": "A Entidad Financiera is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Entidad Financiera {{ id }}?"
+            },
+            "detail": {
+                "title": "Entidad Financiera"
+            },
+            "codigo": "Codigo",
+            "denominacion": "Denominacion",
+            "codigoNumerico": "Codigo Numerico"
+        }
+    }
+}

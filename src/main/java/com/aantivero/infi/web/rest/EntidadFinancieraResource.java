@@ -98,6 +98,21 @@ public class EntidadFinancieraResource {
     }
 
     /**
+     * GET  /eeff : get all the entidadFinancieras.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of entidadFinancieras in body
+     */
+    @GetMapping("/eeff")
+    @Timed
+    public ResponseEntity<List<EntidadFinanciera>> getAllEntidadesFinancieras(@ApiParam Pageable pageable) {
+        log.debug("REST request to get a page of EntidadFinancieras");
+        Page<EntidadFinanciera> page = entidadFinancieraService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/eeff");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
      * GET  /entidad-financieras/:id : get the "id" entidadFinanciera.
      *
      * @param id the id of the entidadFinanciera to retrieve

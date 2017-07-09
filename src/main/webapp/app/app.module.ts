@@ -9,6 +9,7 @@ import { InfiHomeModule } from './home/home.module';
 import { InfiAdminModule } from './admin/admin.module';
 import { InfiAccountModule } from './account/account.module';
 import { InfiEntityModule } from './entities/entity.module';
+import {EeffModule} from './eeff/eeff.module';
 
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
@@ -36,6 +37,7 @@ import {
         InfiAdminModule,
         InfiAccountModule,
         InfiEntityModule,
+        EeffModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [

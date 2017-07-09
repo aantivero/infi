@@ -1,6 +1,6 @@
 {
     "global": {
-        "title": "Infi",
+        "title": "InFi",
         "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
         "menu": {
             "home": "Inicio",
@@ -129,5 +129,5 @@
         "emailexists": "Email is already in use!",
         "idexists": "A new {{entityName}} cannot already have an ID"
     },
-    "footer": "pie de página"
+    "footer": "Desarrollado por <a href=\"https://www.linkedin.com/in/alejandroantivero/\"><strong>Alejandro Antivero</strong></a>"
 }

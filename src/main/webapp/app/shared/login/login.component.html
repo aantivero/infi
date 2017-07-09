@@ -3,7 +3,7 @@
     <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
     </button>
 </div>
-<div class="modal-body">
+<div class="modal-body login">
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="alert alert-danger" *ngIf="authenticationError" jhiTranslate="login.messages.error.authentication">
@@ -30,14 +30,14 @@
                 </div>
                 <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button">Sign in</button>
             </form>
-            <p></p>
+            <!--<p></p>
             <div class="alert alert-warning">
                 <a class="alert-link" (click)="requestResetPassword()" jhiTranslate="login.password.forgot">Did you forget your password?</a>
             </div>
             <div class="alert alert-warning">
                 <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
                 <a class="alert-link" (click)="register()" jhiTranslate="global.messages.info.register.link">Register a new account</a>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

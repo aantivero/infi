@@ -1,0 +1,10 @@
+.login {
+    color: rgba(0,0,0,.87);
+}
+.form-control {
+    background-color: rgba(0,0,0,.12);
+}
+
+.form-group {
+    font-size: .95em;
+}

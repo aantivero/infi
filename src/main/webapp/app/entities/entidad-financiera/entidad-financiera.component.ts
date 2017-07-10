@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, JhiAlertService } from 'ng-jhipster';
@@ -7,6 +7,7 @@ import { EntidadFinanciera } from './entidad-financiera.model';
 import { EntidadFinancieraService } from './entidad-financiera.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { ConfirmService } from '../../shared/confirm-modal-and-service';
 
 @Component({
     selector: 'jhi-entidad-financiera',
@@ -24,13 +25,15 @@ export class EntidadFinancieraComponent implements OnInit, OnDestroy {
     queryCount: any;
     reverse: any;
     totalItems: number;
+    @ViewChild('archivo') archivo;
 
     constructor(
         private entidadFinancieraService: EntidadFinancieraService,
         private alertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private parseLinks: JhiParseLinks,
-        private principal: Principal
+        private principal: Principal,
+        private confirmService: ConfirmService
     ) {
         this.entidadFinancieras = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -100,5 +103,29 @@ export class EntidadFinancieraComponent implements OnInit, OnDestroy {
 
     private onError(error) {
         this.alertService.error(error.message, null, null);
+    }
+
+    loadData(evento) {
+        this.confirmService.confirm({
+            title: 'infiApp.entidadFinanciera.cargarArchivo.label.confirmacion', message: 'infiApp.entidadFinanciera.cargarArchivo.mensaje.confirmacion'
+        }).then(
+            () => {
+                const fileList: FileList = evento.target.files;
+                if (fileList.length > 0) {
+                    this.entidadFinancieraService.loadData(fileList[0]).subscribe(
+                        (res: ResponseWrapper) => this.onSuccessLoadData(res.json),
+                        (res: ResponseWrapper) => this.onError(res.json)
+                    );
+                }
+                this.archivo.nativeElement.value = '';
+            },
+            () => {
+                this.archivo.nativeElement.value = '';
+            });
+    }
+
+    private onSuccessLoadData(respuesta: boolean) {
+        this.loadAll();
+        this.alertService.info(respuesta ? 'infiApp.entidadFinanciera.cargarArchivo.mensaje.success' : 'infiApp.entidadFinanciera.cargarArchivo.mensaje.error');
     }
 }

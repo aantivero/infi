@@ -5,6 +5,7 @@ import com.aantivero.infi.domain.EntidadFinanciera;
 import com.aantivero.infi.service.EntidadFinancieraService;
 import com.aantivero.infi.web.rest.util.HeaderUtil;
 import com.aantivero.infi.web.rest.util.PaginationUtil;
+import com.opencsv.CSVReader;
 import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -15,8 +16,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -138,5 +143,36 @@ public class EntidadFinancieraResource {
         log.debug("REST request to delete EntidadFinanciera : {}", id);
         entidadFinancieraService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * POST  /entidad-financiera/load : Cargar las entidades financieras
+     *
+     * @param archivo  el archivo a cargar
+     * @return Boolean
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/entidad-financiera/load")
+    @Timed
+    public Boolean loadEntidadFinanciera(@RequestParam("archivo")MultipartFile archivo){
+        log.debug("REST request to load entidades financieras");
+        boolean response = false;
+        try {
+            InputStream inputStream = archivo.getInputStream();
+            CSVReader reader = new CSVReader(new InputStreamReader(inputStream));
+            String[] nextLine;
+
+            while ((nextLine = reader.readNext()) != null) {
+                EntidadFinanciera eeff = new EntidadFinanciera();
+                eeff.setCodigo(nextLine[0]);
+                eeff.setCodigoNumerico(new Integer(nextLine[1]));
+                eeff.setDenominacion(nextLine[2]);
+                entidadFinancieraService.save(eeff);
+            }
+            response = true;
+        } catch (IOException e) {
+            log.error("Occurs an error when tried to process the file", e);
+        }
+        return response;
     }
 }

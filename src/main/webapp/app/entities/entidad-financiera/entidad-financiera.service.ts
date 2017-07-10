@@ -51,4 +51,11 @@ export class EntidadFinancieraService {
         const copy: EntidadFinanciera = Object.assign({}, entidadFinanciera);
         return copy;
     }
+
+    loadData(archivo: File): Observable<ResponseWrapper> {
+        const formData: FormData = new FormData();
+        formData.append('archivo', archivo, archivo.name);
+        return this.http.post(`${this.resourceUrl}/load`, formData)
+            .map((res: Response) => this.convertResponse(res));
+    }
 }

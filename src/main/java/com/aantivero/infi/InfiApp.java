@@ -107,7 +107,8 @@ class LoadInfiInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        if (eeffRepository.count() == 0) {
+        System.out.println("LOAD -> Realizado por medio del controller....");
+        /*if (eeffRepository.count() == 0) {
             // Acá no funciona en heroku
             String eeffFileName = "classpath:com/aantivero/infi/eeff.csv";
             Resource resource = resourceLoader.getResource(eeffFileName);
@@ -124,6 +125,6 @@ class LoadInfiInitializer implements CommandLineRunner {
                 eeff.setDenominacion(nextLine[2]);
                 eeffRepository.save(eeff);
             }
-        }
+        }*/
     }
 }

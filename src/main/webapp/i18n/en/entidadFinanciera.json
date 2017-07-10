@@ -17,7 +17,20 @@
             },
             "codigo": "Codigo",
             "denominacion": "Denominacion",
-            "codigoNumerico": "Codigo Numerico"
+            "codigoNumerico": "Codigo Numerico",
+            "cargarArchivo": {
+                "label": {
+                    "cargarAlmanaque": "Cargar Datos",
+                    "tipoArchivoPermitido": "Los tipos de archivos permitidos son: .csv",
+                    "seleccionarArchivo": "Seleccionar Archivo",
+                    "confirmacion": "Confirmación"
+                },
+                "mensaje": {
+                    "success": "El archivo se ha cargado correctamente.",
+                    "error": "No se ha podido cargar el archivo.",
+                    "confirmacion": "¿Está seguro de realizar esta acción?"
+                }
+            }
         }
     }
 }

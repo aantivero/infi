@@ -9,6 +9,15 @@
         </button>
     </h2>
     <jhi-alert></jhi-alert>
+    <div class="form-control">
+        <h6><label for="inputArchivo" jhiTranslate="infiApp.entidadFinanciera.cargarArchivo.label.cargarAlmanaque"></label></h6>
+        <div class="form-group">
+            <label class="btn-bs-file btn-sm btn-primary">
+                <span class="fa fa-upload" aria-hidden="true"></span> <span jhiTranslate="infiApp.entidadFinanciera.cargarArchivo.label.seleccionarArchivo"></span><input #archivo id="archivo" type="file" (change)="loadData($event)"/>
+            </label>
+            <small id="fileHelp" class="form-text text-muted"><p jhiTranslate="infiApp.entidadFinanciera.cargarArchivo.label.tipoArchivoPermitido"></p></small>
+        </div>
+    </div>
     <div class="row">
     </div>
     <br/>

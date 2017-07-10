@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { ConfirmService, ConfirmState, ConfirmTemplateDirective, ConfirmModalComponent } from './confirm-modal-and-service';
 
 import {
     InfiSharedLibsModule,
@@ -24,7 +25,8 @@ import {
     ],
     declarations: [
         JhiLoginModalComponent,
-        HasAnyAuthorityDirective
+        HasAnyAuthorityDirective,
+        ConfirmTemplateDirective, ConfirmModalComponent
     ],
     providers: [
         LoginService,
@@ -36,14 +38,16 @@ import {
         JhiTrackerService,
         AuthServerProvider,
         UserService,
-        DatePipe
+        DatePipe,
+        ConfirmService, ConfirmState
     ],
     entryComponents: [JhiLoginModalComponent],
     exports: [
         InfiSharedCommonModule,
         JhiLoginModalComponent,
         HasAnyAuthorityDirective,
-        DatePipe
+        DatePipe,
+        ConfirmTemplateDirective, ConfirmModalComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

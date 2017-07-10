@@ -16,16 +16,16 @@ import org.springframework.boot.actuate.autoconfigure.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -98,16 +98,20 @@ public class InfiApp {
 class LoadInfiInitializer implements CommandLineRunner {
 
     private final EntidadFinancieraRepository eeffRepository;
+    private final ResourceLoader resourceLoader;
 
-    public LoadInfiInitializer(EntidadFinancieraRepository eeffRepository) {
+    public LoadInfiInitializer(EntidadFinancieraRepository eeffRepository, ResourceLoader resourceLoader) {
         this.eeffRepository = eeffRepository;
+        this.resourceLoader = resourceLoader;
     }
 
     @Override
     public void run(String... strings) throws Exception {
         if (eeffRepository.count() == 0) {
-            String eeffFileName = "eeff.csv";
-            File eeffFile = new ClassPathResource(eeffFileName).getFile();
+            // Acá no funciona en heroku
+            String eeffFileName = "classpath:com/aantivero/infi/eeff.csv";
+            Resource resource = resourceLoader.getResource(eeffFileName);
+            File eeffFile = resource.getFile();//new ClassPathResource(eeffFileName).getFile();
             CSVReader reader = new CSVReader(new FileReader(eeffFile), ';');
 
             String[] nextLine;

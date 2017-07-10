@@ -1,3 +1,12 @@
-<p>
-  eeff works!
-</p>
+<div>
+    <h2>Entidades Financieras</h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="card" *ngFor="let eeff of entidadesFinancieras">
+        <img class="card-img-top rounded mx-auto float-left" src="http://www.bcra.gob.ar/Imagenes/logosbancos/{{eeff.codigo}}.jpg">
+        <div class="card-block">
+            <p class="card-text">{{eeff.denominacion}}</p>
+            <h6 class="card-subtitle text-muted">Código {{eeff.codigo}}</h6>
+        </div>
+    </div>
+</div>

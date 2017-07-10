@@ -8,6 +8,6 @@ export const EEFF_ROUTE: Route = {
     component: EeffComponent,
     data: {
         authorities: [],
-        pageTitle: 'eeff.title'
+        pageTitle: 'home.title'
     }
 };

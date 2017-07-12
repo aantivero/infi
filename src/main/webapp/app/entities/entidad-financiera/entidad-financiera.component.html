@@ -1,6 +1,6 @@
 <div>
     <h2>
-        <span jhiTranslate="infiApp.entidadFinanciera.home.title">Entidad Financieras</span>
+        <span jhiTranslate="infiApp.entidadFinanciera.home.title">Entidades Financieras</span>
         <button class="btn btn-primary float-right create-entidad-financiera" [routerLink]="['/', { outlets: { popup: ['entidad-financiera-new'] } }]">
             <span class="fa fa-plus"></span>
             <span  jhiTranslate="infiApp.entidadFinanciera.home.createLabel">
@@ -9,15 +9,19 @@
         </button>
     </h2>
     <jhi-alert></jhi-alert>
-    <div class="form-control">
+    <div class="row">
+    <div class="form-control float-right">
         <h6><label for="inputArchivo" jhiTranslate="infiApp.entidadFinanciera.cargarArchivo.label.cargarAlmanaque"></label></h6>
         <div class="form-group">
-            <label class="btn-bs-file btn-sm btn-primary">
-                <span class="fa fa-upload" aria-hidden="true"></span> <span jhiTranslate="infiApp.entidadFinanciera.cargarArchivo.label.seleccionarArchivo"></span><input #archivo id="archivo" type="file" (change)="loadData($event)"/>
-            </label>
+
+            <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".csv">
+
             <small id="fileHelp" class="form-text text-muted"><p jhiTranslate="infiApp.entidadFinanciera.cargarArchivo.label.tipoArchivoPermitido"></p></small>
         </div>
-    </div>
+    </div></div>
+    <br/>
+    <br/>
+
     <div class="row">
     </div>
     <br/>

@@ -4380,6 +4380,10 @@ ng-jhipster@0.2.6:
     "@ngx-translate/core" "7.0.0"
     "@ngx-translate/http-loader" "0.1.0"
 
+ng2-uploader@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ng2-uploader/-/ng2-uploader-2.0.0.tgz#5b81140cd813552d57bf4578da57edc5261e93e7"
+
 ng2-webstorage@1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/ng2-webstorage/-/ng2-webstorage-1.8.0.tgz#02bac5f29cecc2b7a4dfea17d9cebc720edf6b49"
@@ -4399,6 +4403,10 @@ ngx-cookie@1.0.0:
 ngx-infinite-scroll@0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-0.5.1.tgz#dd9452c602ff7c3222f0ca168481aa14140286b7"
+
+ngx-uploader@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/ngx-uploader/-/ngx-uploader-3.2.2.tgz#41068d47dd4519d161b6eafb704e623c13d6c87b"
 
 no-case@^2.2.0:
   version "2.3.1"

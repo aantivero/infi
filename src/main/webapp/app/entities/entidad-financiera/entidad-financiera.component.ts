@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, JhiAlertService } from 'ng-jhipster';
@@ -8,6 +8,9 @@ import { EntidadFinancieraService } from './entidad-financiera.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 import { ConfirmService } from '../../shared/confirm-modal-and-service';
+import {RequestOptions} from '@angular/http';
+import {Http} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
     selector: 'jhi-entidad-financiera',
@@ -33,7 +36,8 @@ export class EntidadFinancieraComponent implements OnInit, OnDestroy {
         private eventManager: JhiEventManager,
         private parseLinks: JhiParseLinks,
         private principal: Principal,
-        private confirmService: ConfirmService
+        private confirmService: ConfirmService,
+        private http: Http
     ) {
         this.entidadFinancieras = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -127,5 +131,25 @@ export class EntidadFinancieraComponent implements OnInit, OnDestroy {
     private onSuccessLoadData(respuesta: boolean) {
         this.loadAll();
         this.alertService.info(respuesta ? 'infiApp.entidadFinanciera.cargarArchivo.mensaje.success' : 'infiApp.entidadFinanciera.cargarArchivo.mensaje.error');
+    }
+
+    fileChange(event) {
+        const fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            const file: File = fileList[0];
+            const formData: FormData = new FormData();
+            formData.append('archivo', file, file.name);
+            const headers = new Headers();
+            headers.append('Content-Type', 'multipart/form-data');
+            headers.append('Accept', 'application/json');
+            // let options = new RequestOptions({ headers: headers });
+            this.http.post(`/api/entidad-financiera/load`, formData)
+                .map((res) => res.json())
+                .catch((error) => Observable.throw(error))
+                .subscribe(
+                    (data) => console.log('success'),
+                    (error) => console.log(error)
+                )
+        }
     }
 }

@@ -27,6 +27,8 @@ import {
     ErrorComponent
 } from './layouts';
 
+import {NgUploaderModule} from 'ngx-uploader';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -37,7 +39,8 @@ import {
         InfiAdminModule,
         InfiAccountModule,
         InfiEntityModule,
-        EeffModule
+        EeffModule,
+        NgUploaderModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [

@@ -159,10 +159,11 @@ public class EntidadFinancieraResource {
         boolean response = false;
         try {
             InputStream inputStream = archivo.getInputStream();
-            CSVReader reader = new CSVReader(new InputStreamReader(inputStream));
+            CSVReader reader = new CSVReader(new InputStreamReader(inputStream), ';');
             String[] nextLine;
 
             while ((nextLine = reader.readNext()) != null) {
+                //System.out.println(nextLine.length + " " + nextLine[0]);
                 EntidadFinanciera eeff = new EntidadFinanciera();
                 eeff.setCodigo(nextLine[0]);
                 eeff.setCodigoNumerico(new Integer(nextLine[1]));
